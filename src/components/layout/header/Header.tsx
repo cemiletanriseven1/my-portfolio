@@ -60,55 +60,51 @@ export default function Header() {
         </Link>
 
         {/* Masaüstü menü */}
-<nav aria-label="Ana menü" className="hidden md:flex items-center gap-6">
-  <Link
-    href="/"
-    aria-current={isActive("/") ? "page" : undefined}
-    className={`transition-colors duration-200 underline-offset-4 ${
-      isActive("/")
-        ? "text-[#F87B1B] underline decoration-[#F87B1B] decoration-2"
-        : "text-inherit hover:text-[#F87B1B] hover:underline hover:decoration-[#F87B1B] hover:decoration-2"
-    }`}
-  >
-    Anasayfa
-  </Link>
+        <nav aria-label="Ana menü" className="hidden md:flex items-center gap-6">
+          <Link
+            href="/"
+            aria-current={isActive("/") ? "page" : undefined}
+            className={`transition-colors duration-200 underline-offset-4 ${isActive("/")
+              ? "text-[#F87B1B] underline decoration-[#F87B1B] decoration-2"
+              : "text-inherit hover:text-[#F87B1B] hover:underline hover:decoration-[#F87B1B] hover:decoration-2"
+              }`}
+          >
+            Anasayfa
+          </Link>
 
-  <Link
-    href="/about"
-    aria-current={isActive("/about") ? "page" : undefined}
-    className={`transition-colors duration-200 underline-offset-4 ${
-      isActive("/about")
-        ? "text-[#F87B1B] underline decoration-[#F87B1B] decoration-2"
-        : "text-inherit hover:text-[#F87B1B] hover:underline hover:decoration-[#F87B1B] hover:decoration-2"
-    }`}
-  >
-    Hakkımda
-  </Link>
+          <Link
+            href="/about"
+            aria-current={isActive("/about") ? "page" : undefined}
+            className={`transition-colors duration-200 underline-offset-4 ${isActive("/about")
+              ? "text-[#F87B1B] underline decoration-[#F87B1B] decoration-2"
+              : "text-inherit hover:text-[#F87B1B] hover:underline hover:decoration-[#F87B1B] hover:decoration-2"
+              }`}
+          >
+            Hakkımda
+          </Link>
 
-  <Link
-    href="/project"
-    aria-current={isActive("/project") ? "page" : undefined}
-    className={`transition-colors duration-200 underline-offset-4 ${
-      isActive("/project")
-        ? "text-[#F87B1B] underline decoration-[#F87B1B] decoration-2"
-        : "text-inherit hover:text-[#F87B1B] hover:underline hover:decoration-[#F87B1B] hover:decoration-2"
-    }`}
-  >
-    Projeler
-  </Link>
+          <Link
+            href="/project"
+            aria-current={isActive("/project") ? "page" : undefined}
+            className={`transition-colors duration-200 underline-offset-4 ${isActive("/project")
+              ? "text-[#F87B1B] underline decoration-[#F87B1B] decoration-2"
+              : "text-inherit hover:text-[#F87B1B] hover:underline hover:decoration-[#F87B1B] hover:decoration-2"
+              }`}
+          >
+            Projeler
+          </Link>
 
-  <Link
-    href="/contact"
-    aria-current={isActive("/contact") ? "page" : undefined}
-    className={`transition-colors duration-200 underline-offset-4 ${
-      isActive("/contact")
-        ? "text-[#F87B1B] underline decoration-[#F87B1B] decoration-2"
-        : "text-inherit hover:text-[#F87B1B] hover:underline hover:decoration-[#F87B1B] hover:decoration-2"
-    }`}
-  >
-    İletişim
-  </Link>
-</nav>
+          <Link
+            href="/contact"
+            aria-current={isActive("/contact") ? "page" : undefined}
+            className={`transition-colors duration-200 underline-offset-4 ${isActive("/contact")
+              ? "text-[#F87B1B] underline decoration-[#F87B1B] decoration-2"
+              : "text-inherit hover:text-[#F87B1B] hover:underline hover:decoration-[#F87B1B] hover:decoration-2"
+              }`}
+          >
+            İletişim
+          </Link>
+        </nav>
 
 
 

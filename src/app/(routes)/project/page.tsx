@@ -1,3 +1,4 @@
+// src/app/(routes)/project/page.tsx
 import React from 'react'
 
 type Post = {
@@ -6,9 +7,24 @@ type Post = {
     content: string;
 };
 
+import { getBaseUrl } from "@/lib/getBaseUrl"; // alias yoksa "../../lib/getBaseUrl" gibi düzelt
+
 const ProjectPage = async () => {
-    const res = await fetch("http://localhost:3000/api/project", { cache: "no-store" });
-    const posts: Post[] = await res.json();
+    const base = getBaseUrl();
+    const url = `${base}/api/project`;
+    let posts: Post[] = [];
+
+    try {
+        const res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) {
+            console.error("Project API non-OK:", res.status, await res.text().catch(() => ""));
+        } else {
+            posts = await res.json();
+        }
+    } catch (err) {
+        console.error("Failed fetching project posts from", url, err);
+        posts = [];
+    }
 
     return (
         <div className="container mx-auto py-10 md:py-12">
@@ -25,4 +41,4 @@ const ProjectPage = async () => {
     );
 };
 
-export default ProjectPage
+export default ProjectPage;

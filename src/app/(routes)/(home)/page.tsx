@@ -9,6 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui
 import { Badge } from "../../../components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "../../../components/ui/tabs";
 
+import { getBaseUrl } from "@/lib/getBaseUrl"; // eğer @ alias yoksa "../../lib/getBaseUrl" kullan
+
 type Post = {
   id: string | number;
   title: string;
@@ -53,38 +55,48 @@ const PROJECTS = [
   },
 ];
 
-export default async function ProjectPage() {
-  // server-side fetch
-  const res = await fetch("http://localhost:3000/api/project", { cache: "no-store" });
+export default async function HomePage() {
+  const base = getBaseUrl();
+  const postsUrl = `${base}/api/project`;
   let posts: Post[] = [];
+
   try {
-    posts = await res.json();
-  } catch {
+    const res = await fetch(postsUrl, { cache: "no-store" });
+    if (!res.ok) {
+      console.error("API responded with non-OK:", res.status, await res.text().catch(() => ""));
+    } else {
+      posts = await res.json();
+    }
+  } catch (err) {
+    console.error("Error fetching posts from", postsUrl, err);
     posts = [];
   }
 
   return (
     <main
-    className="min-h-screen transition-all duration-300 ease-in-out"
-    style={
-      {
-        "--color-my-primary": "#fafafa",
-        "--color-my-primary-foreground": "#111111"
-      } as React.CSSProperties
-    }
-  >
+      className="min-h-screen transition-all duration-300 ease-in-out"
+      style={
+        {
+          "--color-my-primary": "#fafafa",
+          "--color-my-primary-foreground": "#111111",
+        } as React.CSSProperties
+      }
+    >
       <div className="max-w-6xl mx-auto px-6 py-16">
         <section className="grid md:grid-cols-2 gap-8 items-center py-8">
           <div className="order-2 md:order-2 flex justify-center md:justify-end">
-            <div className="w-56 h-56 md:w-64 md:h-64 rounded-2xl overflow-hidden border border-border/30 bg-card/40">
-              <Image
-                src="/resim.png"
-                alt="Cemilenur Tanrıseven portrait"
-                width={256}
-                height={256}
-                className="object-cover w-full h-full"
-              />
-            </div>
+            <div className="w-64 h-80 md:w-72 md:h-96 rounded-2xl overflow-hidden border border-border/30 bg-card/40">
+  <Image
+    src="/resim.png"
+    alt="Cemilenur Tanrıseven portrait"
+    width={288}
+    height={384}
+    className="object-contain w-full h-full"
+    priority
+  />
+</div>
+
+
           </div>
 
           <div className="order-1 md:order-1">
@@ -109,7 +121,6 @@ export default async function ProjectPage() {
                 </Button>
               </Link>
             </div>
-
           </div>
         </section>
 
@@ -153,14 +164,12 @@ export default async function ProjectPage() {
             </Link>
           </div>
 
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {PROJECTS.map((p) => (
               <Card key={p.title} className="p-4 transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-[1.02] hover:border-[color:#F87B1B]">
                 <CardContent>
                   <h4 className="text-xl font-semibold mb-2">{p.title}</h4>
                   <p className="text-muted-foreground mb-4">{p.description}</p>
-
                 </CardContent>
               </Card>
             ))}
@@ -177,8 +186,7 @@ export default async function ProjectPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Kulak ve soluk borusundaki hastalıkları tespit eden yapay zeka modeli geliştirdim. Veri etiketleme, model eğitimi ve test
-                  süreçlerinde aktif rol aldım.
+                  Kulak ve soluk borusundaki hastalıkları tespit eden yapay zeka modeli geliştirdim.
                 </p>
               </CardContent>
             </Card>
@@ -189,8 +197,7 @@ export default async function ProjectPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Front-end (React) geliştirmeleri yaptım, back-end ekibine de destek verdim. Kod inceleme, sürüm yönetimi ve ekip içi süreçlerde
-                  yer aldım.
+                  Front-end (React) geliştirmeleri yaptım, back-end ekibine de destek verdim.
                 </p>
               </CardContent>
             </Card>
