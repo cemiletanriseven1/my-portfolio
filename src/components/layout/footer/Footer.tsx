@@ -4,9 +4,9 @@ import { Button } from "../../ui/button";
 
 export default function Footer() {
     return (
-        <footer className="bg-my-primary text-white" data-testid="footer">
-            <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4 px-4 py-6">
-                <div className="text-center text-white md:text-left space-y-2">
+        <footer className="w-full bg-my-primary text-white overflow-x-hidden" data-testid="footer">
+            <div className="w-full max-w-6xl mx-auto flex flex-col md:flex-row flex-wrap justify-between items-center gap-6 px-6 py-6">
+                <div className="text-center md:text-left space-y-2">
                     <Link href="/" className="text-2xl font-bold">
                         Cemilenur Tanrıseven
                     </Link>
@@ -15,14 +15,14 @@ export default function Footer() {
                     </p>
                 </div>
 
-                <nav className="flex gap-4 mt-6 md:mt-0">
+                <nav className="flex flex-wrap justify-center gap-4 mt-4 md:mt-0">
                     <Link href="/" className="text-white/90 hover:underline underline-offset-4">Anasayfa</Link>
                     <Link href="/about" className="text-white/90 hover:underline underline-offset-4">Hakkımda</Link>
                     <Link href="/project" className="text-white/90 hover:underline underline-offset-4">Projeler</Link>
                     <Link href="/contact" className="text-white/90 hover:underline underline-offset-4">İletişim</Link>
                 </nav>
 
-                <div className="flex gap-2 mt-6 md:mt-0">
+                <div className="flex justify-center flex-wrap gap-2 mt-4 md:mt-0">
                     <a href="https://github.com/cemiletanriseven1" target="_blank" rel="noreferrer">
                         <Button variant="secondary" size="icon" aria-label="Github">
                             <Github className="h-5 w-5" aria-hidden />
@@ -38,7 +38,6 @@ export default function Footer() {
                             <Linkedin className="h-5 w-5" aria-hidden />
                         </Button>
                     </a>
-                    
                 </div>
             </div>
         </footer>

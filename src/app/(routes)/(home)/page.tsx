@@ -10,6 +10,7 @@ import { Badge } from "../../../components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "../../../components/ui/tabs";
 
 import { getBaseUrl } from "@/lib/getBaseUrl"; // eğer @ alias yoksa "../../lib/getBaseUrl" kullan
+import { Description } from "node_modules/@radix-ui/react-dialog/dist/index";
 
 type Post = {
   id: string | number;
@@ -53,6 +54,12 @@ const PROJECTS = [
     description:
       "Ürün listeleme, kategori filtreleme ve sepet yönetimi özelliklerine sahip tam işlevli bir e-ticaret platformu.",
   },
+  {
+    title: "WhatsApp Konuşma Analizi Uygulaması",
+    description:
+      "WhatsApp konuşmalarını analiz eden, Java ve Python tabanlı, yapay zekâ destekli metin işleme ve görselleştirme özelliklerine sahip bir web uygulaması."
+
+  }
 ];
 
 export default async function HomePage() {
@@ -74,7 +81,7 @@ export default async function HomePage() {
 
   return (
     <main
-      className="min-h-screen transition-all duration-300 ease-in-out"
+      className="min-h-screen transition-all duration-300 ease-in-out overflow-x-hidden"
       style={
         {
           "--color-my-primary": "#fafafa",
@@ -82,32 +89,33 @@ export default async function HomePage() {
         } as React.CSSProperties
       }
     >
-      <div className="max-w-6xl mx-auto px-6 py-16">
-        <section className="grid md:grid-cols-2 gap-8 items-center py-8">
+      <div className="w-full max-w-6xl mx-auto px-6 py-16 overflow-x-hidden">
+
+        <section className="grid md:grid-cols-2 gap-6 items-center py-8">
           <div className="order-2 md:order-2 flex justify-center md:justify-end">
-            <div className="w-64 h-80 md:w-72 md:h-96 rounded-2xl overflow-hidden border border-border/30 bg-card/40">
-  <Image
-    src="/resim.png"
-    alt="Cemilenur Tanrıseven portrait"
-    width={288}
-    height={384}
-    className="object-contain w-full h-full"
-    priority
-  />
-</div>
+            <div className="w-64 h-80 md:w-72 md:h-96 rounded-2xl overflow-hidden border border-border/30 bg-card/40 mx-auto">
+              <Image
+  src="/resim.webp"
+  alt="Cemilenur Tanrıseven portrait"
+  width={288}
+  height={384}
+  className="object-cover w-full h-full"
+  priority
+/>
 
 
+
+            </div>
           </div>
 
-          <div className="order-1 md:order-1">
+          <div className="order-1 md:order-1 text-center md:text-left">
             <h1 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight mb-4">
               Merhaba, ben Cemilenur Tanrıseven.
             </h1>
-            <p className="text-muted-foreground mb-6 max-w-xl">
-              Front-end geliştirici ve yazılım mühendisliği öğrencisiyim. Temiz kod, ölçeklenebilir tasarım ve kullanıcı deneyimine önem
-              veriyorum.
+            <p className="text-muted-foreground mb-6 max-w-xl mx-auto md:mx-0">
+              Front-end geliştirici ve yazılım mühendisliği öğrencisiyim. Temiz kod, ölçeklenebilir tasarım ve kullanıcı deneyimine önem veriyorum.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap justify-center md:justify-start gap-3">
               <Link href="/project">
                 <Button asChild>
                   <span className="inline-flex items-center gap-2">
@@ -213,7 +221,8 @@ export default async function HomePage() {
                 <p className="text-muted-foreground mt-2">Proje fikirlerinizi paylaşın veya bir görüşme ayarlayın — her zaman yeni işbirliklerine açığım.</p>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap justify-center md:justify-end items-center gap-3 w-full text-center overflow-x-hidden">
+
                 <a href="https://github.com/cemiletanriseven1" target="_blank" rel="noreferrer">
                   <Button variant="ghost" asChild>
                     <span className="inline-flex items-center gap-2">

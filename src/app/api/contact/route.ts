@@ -1,44 +1,74 @@
-// src/app/api/contact/route.ts
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { email, message } = body || {};
+    const { email, message, captchaToken } = body || {};
 
     if (!email || !message) {
-      return NextResponse.json({ error: "Eksik alan" }, { status: 400 });
+      return NextResponse.json(
+        { error: "E-posta ve mesaj gereklidir." },
+        { status: 400 }
+      );
     }
 
-    // Burada e-posta servisine gönderim yapabilirsin.
-    // Örnek (Nodemailer) - NOT: gerçek kullanım için SMTP bilgilerini .env içine koy:
-    /*
-    import nodemailer from "nodemailer";
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: Boolean(process.env.SMTP_SECURE === "true"),
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-    await transporter.sendMail({
-      from: `"Site İletişim" <${process.env.SMTP_FROM}>`,
-      to: "cemiletanriseven31@gmail.com",
-      subject: `Yeni iletişim formu - ${email}`,
-      text: `Gönderen: ${email}\n\nMesaj:\n${message}`,
-    });
-    */
+    // 🟣 1) CAPTCHA GELMİŞ Mİ?
+    if (!captchaToken) {
+      return NextResponse.json(
+        { error: "Captcha doğrulanamadı." },
+        { status: 400 }
+      );
+    }
 
-    // Şimdilik sadece logla (geliştirme)
-    // eslint-disable-next-line no-console
-    console.log("Contact form received:", { email, message });
+    // 🟣 2) CAPTCHA TOKENINI GOOGLE'A DOĞRULAT
+    const secretKey = process.env.RECAPTCHA_SECRET_KEY;
 
-    return NextResponse.json({ ok: true }, { status: 200 });
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error("Contact API error:", err);
-    return NextResponse.json({ error: "Sunucu hatası" }, { status: 500 });
+    const googleRes = await fetch(
+      "https://www.google.com/recaptcha/api/siteverify",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `secret=${secretKey}&response=${captchaToken}`
+      }
+    );
+
+    const captchaValidation = await googleRes.json();
+
+    console.log("Captcha doğrulama:", captchaValidation);
+
+    // Eğer başarılı değilse mail gönderme!
+    if (!captchaValidation.success) {
+      return NextResponse.json(
+        { error: "Captcha doğrulaması geçersiz." },
+        { status: 400 }
+      );
+    }
+
+    // 🟣 3) CAPTCHA OK → Artık mail gönderebiliriz
+    const sendResult = await resend.emails.send({
+  from: "Cemile Form <onboarding@resend.dev>",
+  to: "xxceyox@gmail.com",
+  subject: `Yeni iletişim formu - ${email}`,
+  text: `Gönderen: ${email}\n\nMesaj:\n${message}`,
+});
+
+    console.log("Resend yanıtı:", sendResult);
+
+    return NextResponse.json(
+      { success: true, message: "Mesaj başarıyla gönderildi." },
+      { status: 200 }
+    );
+
+  } catch (error) {
+    console.error("Contact API error:", error);
+    return NextResponse.json(
+      { error: "Sunucu hatası" },
+      { status: 500 }
+    );
   }
 }

@@ -3,17 +3,21 @@ import Image from "next/image";
 
 export default function AboutPage() {
     return (
-        <div className="container mx-auto py-8">
+        <div className="w-full max-w-5xl mx-auto px-4 py-8 overflow-x-hidden">
+
             <h1 className="mb-4 text-2xl font-semibold">Cemilenur Tanrıseven kimdir?</h1>
 
             <Image
-  src="/resim.png"
+  src="/resim.webp"
   alt="Cemilenur Tanrıseven"
-  width={400}
-  height={400}
-  className="mx-auto rounded-xl object-contain max-w-xs md:max-w-sm"
+  width={320}
+  height={320}
+  className="mx-auto rounded-xl object-cover max-w-[280px] md:max-w-sm"
   priority
 />
+
+
+
 
             <div className="mt-8 mx-auto max-w-3xl space-y-6 leading-relaxed">
                 <h1 className="text-base md:text-[17px] font-normal">Merhaba, ben Cemilenur Tanrıseven. Samsun Üniversitesi Yazılım Mühendisliği 4. sınıf öğrencisiyim ve ağırlıklı olarak front-end geliştirme yapıyorum. Amacım: temiz kod, tutarlı bileşen mimarisi ve sağlam bilgi mimarisiyle hızlı, erişilebilir ve sürdürülebilir arayüzler üretmek. Tasarım sistemleri, performans optimizasyonu ve erişilebilirlik (WCAG) konularına özellikle ilgi duyuyorum.</h1>
