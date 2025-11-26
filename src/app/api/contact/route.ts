@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
   try {
@@ -25,6 +24,13 @@ export async function POST(req: Request) {
 
     // 🟣 2) CAPTCHA TOKENINI GOOGLE'A DOĞRULAT
     const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+    if (!secretKey) {
+      console.warn("RECAPTCHA_SECRET_KEY missing. Skipping verification.");
+      return NextResponse.json(
+        { error: "Captcha doğrulaması yapılandırılmamış." },
+        { status: 500 }
+      );
+    }
 
     const googleRes = await fetch(
       "https://www.google.com/recaptcha/api/siteverify",
@@ -50,12 +56,23 @@ export async function POST(req: Request) {
     }
 
     // 🟣 3) CAPTCHA OK → Artık mail gönderebiliriz
+    const resendApiKey = process.env.RESEND_API_KEY;
+    if (!resendApiKey) {
+      console.warn("RESEND_API_KEY missing. Skipping email send.");
+      return NextResponse.json(
+        { error: "E-posta servisi yapılandırılmamış." },
+        { status: 500 }
+      );
+    }
+
+    const resend = new Resend(resendApiKey);
+
     const sendResult = await resend.emails.send({
-  from: "Cemile Form <onboarding@resend.dev>",
-  to: "xxceyox@gmail.com",
-  subject: `Yeni iletişim formu - ${email}`,
-  text: `Gönderen: ${email}\n\nMesaj:\n${message}`,
-});
+      from: "Cemile Form <onboarding@resend.dev>",
+      to: "xxceyox@gmail.com",
+      subject: `Yeni iletişim formu - ${email}`,
+      text: `Gönderen: ${email}\n\nMesaj:\n${message}`,
+    });
 
     console.log("Resend yanıtı:", sendResult);
 

@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Menu } from "lucide-react";
-// @ alias yoksa:
+import Menu from "lucide-react/dist/esm/icons/menu";
 import { Button } from "../../ui/button";
 import {
     Sheet, SheetClose, SheetContent, SheetFooter,

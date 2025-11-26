@@ -1,5 +1,5 @@
-// src/app/(routes)/project/page.tsx
-import React from 'react'
+
+import React from "react"
 
 type Post = {
     id: number | string;
@@ -7,24 +7,29 @@ type Post = {
     content: string;
 };
 
-import { getBaseUrl } from "@/lib/getBaseUrl"; // alias yoksa "../../lib/getBaseUrl" gibi düzelt
+export const revalidate = 3600;
 
-const ProjectPage = async () => {
-    const base = getBaseUrl();
-    const url = `${base}/api/project`;
-    let posts: Post[] = [];
 
+async function getProjects(): Promise<Post[]> {
+    const vercelHost = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined;
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? vercelHost ?? "http://localhost:3000";
     try {
-        const res = await fetch(url, { cache: "no-store" });
+        const res = await fetch(`${baseUrl}/api/project`, {
+            next: { revalidate },
+        });
         if (!res.ok) {
             console.error("Project API non-OK:", res.status, await res.text().catch(() => ""));
-        } else {
-            posts = await res.json();
+            return [];
         }
+        return res.json();
     } catch (err) {
-        console.error("Failed fetching project posts from", url, err);
-        posts = [];
+        console.error("Failed fetching project posts from", baseUrl, err);
+        return [];
     }
+}
+
+const ProjectPage = async () => {
+    const posts = await getProjects();
 
     return (
         <div className="container mx-auto py-10 md:py-12">

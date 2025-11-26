@@ -8,13 +8,13 @@ export default function AboutPage() {
             <h1 className="mb-4 text-2xl font-semibold">Cemilenur Tanrıseven kimdir?</h1>
 
             <Image
-  src="/resim.webp"
-  alt="Cemilenur Tanrıseven"
-  width={320}
-  height={320}
-  className="mx-auto rounded-xl object-cover max-w-[280px] md:max-w-sm"
-  priority
-/>
+                src="/resim.webp"
+                alt="Cemilenur Tanrıseven"
+                width={320}
+                height={320}
+                className="mx-auto rounded-xl object-cover max-w-[280px] md:max-w-sm"
+                priority
+            />
 
 
 
