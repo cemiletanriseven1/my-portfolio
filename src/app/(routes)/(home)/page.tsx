@@ -1,13 +1,15 @@
-
 import React from "react";
 import dynamic from "next/dynamic";
 import { HeroSection } from "@/components/hero/HeroSection";
+
+// Dinamik importlar
 const SkillsSection = dynamic(() => import("./sections/SkillsSection"));
 const ProjectsSection = dynamic(() => import("./sections/ProjectsSection"));
 const ExperienceSection = dynamic(() => import("./sections/ExperienceSection"));
 const ContactCTA = dynamic(() => import("./sections/ContactCTA"));
 
 
+// VERİLER (İçerik aynen korundu)
 const SKILLS: { name: string; href: string }[] = [
   { name: "React", href: "https://react.dev" },
   { name: "Next.js", href: "https://nextjs.org" },
@@ -51,11 +53,12 @@ const PROJECTS = [
 
   }
 ];
-export default function HomePage() {
 
+export default function HomePage() {
   return (
     <main
-      className="min-h-screen transition-all duration-300 ease-in-out overflow-x-hidden"
+      // Arka plana hafif bir radyal gradyan ekleyerek derinlik kattık
+      className="min-h-screen transition-all duration-300 ease-in-out overflow-x-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-background via-background to-muted/30"
       style={
         {
           "--color-my-primary": "#fafafa",
@@ -63,16 +66,23 @@ export default function HomePage() {
         } as React.CSSProperties
       }
     >
-      <div className="w-full max-w-6xl mx-auto px-6 py-16 overflow-x-hidden">
+      {/* Max-width değerini biraz artırarak içeriğe daha fazla alan tanıdık (max-w-7xl) */}
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 py-16 overflow-x-hidden flex flex-col space-y-16 md:space-y-24">
+        
         <HeroSection />
-        <SkillsSection skills={SKILLS} />
+        
+        {/* Bölümleri sarmalayan ve aralarına boşluk koyan yapı */}
+        <div className="flex flex-col space-y-16 md:space-y-32">
+            <SkillsSection skills={SKILLS} />
+            <ProjectsSection projects={PROJECTS} />
+            <ExperienceSection />
+            {/* Contact CTA en sona, footer'ın hemen üstüne alındı */}
+            <ContactCTA />
+        </div>
 
-        {/* Contact CTA */}
-        <ProjectsSection projects={PROJECTS} />
-        <ExperienceSection />
-
-
-        <footer className="mt-12 text-center text-sm text-muted-foreground">© {new Date().getFullYear()} Cemilenur Tanrıseven — Tüm hakları saklıdır.</footer>
+        <footer className="mt-20 pt-10 border-t border-border/40 text-center text-sm text-muted-foreground">
+            <p>© {new Date().getFullYear()} <span className="font-semibold text-foreground">Cemilenur Tanrıseven</span> — Tüm hakları saklıdır.</p>
+        </footer>
       </div>
     </main>
   );

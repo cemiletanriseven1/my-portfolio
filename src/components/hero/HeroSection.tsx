@@ -5,14 +5,7 @@ import ExternalLink from "lucide-react/dist/esm/icons/external-link";
 import { Button } from "../ui/button";
 import styles from "./HeroSection.module.css";
 
-const HERO_IMAGE = {
-    src: "/resim.webp",
-    width: 288,
-    height: 384,
-    blurDataURL:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMB/ab0s+0AAAAASUVORK5CYII=",
-    sizes: "(max-width: 768px) 60vw, 288px",
-};
+
 
 export function HeroSection() {
     return (
@@ -20,16 +13,12 @@ export function HeroSection() {
             <div className={styles.heroMedia}>
                 <div className={styles.heroFrame}>
                     <Image
-                        src={HERO_IMAGE.src}
-                        alt="Cemilenur Tanrıseven portrait"
-                        width={HERO_IMAGE.width}
-                        height={HERO_IMAGE.height}
-                        className="object-cover w-full h-full"
-                        placeholder="blur"
-                        blurDataURL={HERO_IMAGE.blurDataURL}
-                        priority
-                        fetchPriority="high"
-                        sizes={HERO_IMAGE.sizes}
+                        src="/resim.webp" // Görsel yolunun doğru olduğundan emin ol
+        alt="Cemilenur Tanrıseven"
+        width={286} // Görselin gerçek genişliğine uygun bir değer
+        height={382} // Görselin gerçek yüksekliğine uygun bir değer
+        className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+        priority // <-- BU SATIRI EKLE
                     />
                 </div>
             </div>
