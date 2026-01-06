@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💻 Kişisel Portföy Web Sitesi
 
-## Getting Started
+Modern web teknolojileri ve sektörel standartlar (Clean Code, Atomic Design) takip edilerek geliştirilmiş, yüksek performanslı kişisel portföy projesidir. Proje; hakkımda, yetenekler, dinamik projeler ve güvenli iletişim formu gibi temel bölümlerden oluşmaktadır.
 
-First, run the development server:
+## 🚀 Öne Çıkan Özellikler
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- [cite_start]**🌗 Dark/Light Mode:** Kullanıcı tercihlerine göre dinamik tema desteği[cite: 108].
+- [cite_start]**📊 Dinamik Proje Yönetimi:** Next.js API Routes üzerinden JSON veri modelleri ile projelerin dinamik olarak listelenmesi[cite: 134, 135].
+- [cite_start]**📧 Güvenli İletişim:** Resend API ile e-posta gönderimi ve Google reCAPTCHA ile spam koruması.
+- **⚡ Performans Odaklı:** Görsel optimizasyonlar ve lazy loading teknikleri ile 100/100 Lighthouse skoru hedefleyen yapı.
+- [cite_start]**📱 Tam Duyarlı (Responsive):** TailwindCSS kullanılarak tüm cihazlarda kusursuz görüntüleme[cite: 236].
+
+## 🛠️ Teknik Yığın (Tech Stack)
+
+- [cite_start]**Framework:** [Next.js](https://nextjs.org/) (App Router Mimarisi) [cite: 134]
+- [cite_start]**Dil:** [TypeScript](https://www.typescriptlang.org/) [cite: 84]
+- [cite_start]**Stil:** [Tailwind CSS](https://tailwindcss.com/) [cite: 84]
+- [cite_start]**UI Bileşenleri:** [shadcn/ui](https://ui.shadcn.com/) [cite: 86]
+- [cite_start]**E-Posta Servisi:** [Resend](https://resend.com/) [cite: 203]
+- [cite_start]**Güvenlik:** Google reCAPTCHA [cite: 205]
+
+## 🏗️ Proje Mimarisi
+
+[cite_start]Sürdürülebilirlik için modüler bir klasör yapısı ve **Atomic Design** yaklaşımı benimsenmiştir[cite: 88]:
+
+```text
+src/
+├── app/            # Next.js App Router (Sayfalar ve API Route'lar) [cite: 134]
+├── components/     # UI bileşenleri (Header, Footer, Kartlar vb.) [cite: 108, 137]
+├── lib/            # Yardımcı fonksiyonlar ve API konfigürasyonları
+└── public/         # Statik varlıklar ve optimize edilmiş görseller
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
